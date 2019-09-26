@@ -1,4 +1,4 @@
-#/bin/bash
+4#/bin/bash
 #Criado por Daniel Domingues
 #https://github.com/lohcus
 
@@ -101,7 +101,6 @@ then
 	printf "\033[41;37;1m$aux \033[m"
 fi
 
-
 echo
 printf "\033[32;1m==========ETHERNET==========\n\033[m"
 
@@ -118,6 +117,8 @@ proto=$(echo $1 | cut -d " " -f 13,14 | sed 's/ //g')
 if [ $proto = "0800" ]
 then
 	printf "\033[33;1mIPv4\n\033[m"
+
+	echo
 	printf "\033[32;1m=============IP=============\n\033[m"
 
 	echo -n "Versão: "
@@ -232,7 +233,6 @@ then
 	else
 		echo "PROTOCOLO DA CAMADA DE TRANSPORTE DIFERENTE DE TCP E UDP"
 	fi
-	echo
 elif [ $proto = "0806" ]
 then
 	printf "\033[33;1mARP\n\033[m"
