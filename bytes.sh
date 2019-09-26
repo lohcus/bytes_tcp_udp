@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 #Criado por Daniel Domingues
 #https://github.com/lohcus
 
@@ -236,6 +236,10 @@ then
 elif [ $proto = "0806" ]
 then
 	printf "\033[33;1mARP\n\033[m"
+
+	echo
+	printf "\033[32;1m=============ARP=============\n\033[m"
+
 	echo -n "Hardware Type: "
 	aux=$(echo $1 | cut -d " " -f 15-16 | sed 's/ //g')
 	if [ $aux = "0001" ]
