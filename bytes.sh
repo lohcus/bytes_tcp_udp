@@ -1,4 +1,4 @@
-#!/bin/bash
+#/bin/bash
 #Criado por Daniel Domingues
 #https://github.com/lohcus
 
