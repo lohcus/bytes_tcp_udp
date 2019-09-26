@@ -1,4 +1,4 @@
-Script simples para análise de bytes para cabeçalhos IP e TCP/UDP de tamanho fixo de 20 bytes.
+Script simples para análise de bytes para cabeçalhos IP e TCP/UDP de tamanho fixo de 20 bytes cada.
 
 Sintaxe de uso:
 ./bytes.sh "<seq bytes>"
