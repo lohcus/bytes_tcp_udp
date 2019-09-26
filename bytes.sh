@@ -1,9 +1,72 @@
-  #/bin/bash
+#/bin/bash
 #Criado por Daniel Domingues
 #https://github.com/lohcus
 
-
 clear
+
+#SEQUENCIA PARA COLORIR OS BYTES E FACILITAR A VISUALIZAÇÃO
+#CAMADA 2
+aux=$(echo $1 | cut -d " " -f 1-6)
+printf "\033[44;31;1m$aux \033[m"
+aux=$(echo $1 | cut -d " " -f 7-12)
+printf "\033[44;37;1m$aux \033[m"
+aux=$(echo $1 | cut -d " " -f 13-14)
+printf "\033[44;31;1m$aux \033[m"
+
+#CAMADA 3
+#VERSION
+aux=$(echo $1 | cut -d " " -f 15 | cut -c1)
+printf "\033[41;37;1m$aux\033[m"
+#IHL
+aux=$(echo $1 | cut -d " " -f 15 | cut -c2)
+printf "\033[41;36;1m$aux \033[m"
+#ToS
+aux=$(echo $1 | cut -d " " -f 16)
+printf "\033[41;37;1m$aux\n\033[m"
+#TOTAL LENGTH
+aux=$(echo $1 | cut -d " " -f 17-18)
+printf "\033[41;36;1m$aux \033[m"
+#ID
+aux=$(echo $1 | cut -d " " -f 19-20)
+printf "\033[41;37;1m$aux \033[m"
+#FLAGS
+aux=$(echo $1 | cut -d " " -f 21 | cut -c1)
+printf "\033[41;36;1m$aux\033[m"
+#FRAGMENT OFFSET
+aux=$(echo $1 | cut -d " " -f 21 | cut -c2)
+printf "\033[41;37;1m$aux \033[m"
+#TTL
+aux=$(echo $1 | cut -d " " -f 22)
+printf "\033[41;36;1m$aux \033[m"
+#PROTOCOL
+aux=$(echo $1 | cut -d " " -f 23)
+printf "\033[41;37;1m$aux \033[m"
+#HEADER CHECKSUM
+aux=$(echo $1 | cut -d " " -f 24-25)
+printf "\033[41;36;1m$aux \033[m"
+#SRC ADDR
+aux=$(echo $1 | cut -d " " -f 26-30)
+printf "\033[41;37;1m$aux \033[m"
+#DST ADDR
+aux=$(echo $1 | cut -d " " -f 31-32)
+printf "\033[41;36;1m$aux\n\033[m"
+aux=$(echo $1 | cut -d " " -f 33-34)
+printf "\033[41;36;1m$aux \033[m"
+
+#CAMADA 4
+#SRC PORT
+aux=$(echo $1 | cut -d " " -f 35-36)
+printf "\033[42;37;1m$aux \033[m"
+#SRC PORT
+aux=$(echo $1 | cut -d " " -f 37-38)
+printf "\033[42;31;1m$aux \033[m"
+#RESTANTE DO CABEÇALHO DA CAMADA DE TRANSPORTE
+aux=$(echo $1 | cut -d " " -f 39-48)
+printf "\033[42;37;1m$aux\n\033[m"
+aux=$(echo $1 | cut -d " " -f 49-64)
+printf "\033[42;37;1m$aux\n\033[m"
+
+echo
 printf "\033[32;1m==========ETHERNET==========\n\033[m"
 
 echo -n "Dst MAC: "
@@ -22,14 +85,23 @@ then
 elif [ $proto = "0806" ]
 then
 	printf "\033[33;1mARP\n\033[m"
+	printf "\033[32;1mESTE SCRIPT SUPORTA APENAS IPv4!\n\033[m"
+	echo
+	exit 0
 elif [ $proto = "86DD" ]
 then
 	printf "\033[33;1mIPv6\n\033[m"
+	printf "\033[32;1mESTE SCRIPT SUPORTA APENAS IPv4!\n\033[m"
+	echo
+	exit 0
 else
 	printf "\033[33;1m$proto\n\033[m"
+	printf "\033[32;1mESTE SCRIPT SUPORTA APENAS IPv4!\n\033[m"
+	echo
+	exit 0
 fi
 
-echo ""
+echo
 printf "\033[32;1m=============IP=============\n\033[m"
 
 echo -n "Versão: "
@@ -92,7 +164,7 @@ echo -n "Dst IP: "
 aux=$(printf "%d.%d.%d.%d\n" 0x$(echo $1 | cut -d " " -f 31) 0x$(echo $1 | cut -d " " -f 32) 0x$(echo $1 | cut -d " " -f 33)  0x$(echo $1 | cut -d " " -f 34))
 printf "\033[33;1m$aux\n\033[m"
 
-echo ""
+echo
 if [ $proto = "TCP" ]
 then
 	printf "\033[32;1m===========T C P=============\n\033[m"
@@ -121,7 +193,8 @@ then
 	echo "Flags: U A P R S F"
 	echo "       R C S S Y I"
 	echo "       G K H T N N"
-	flag=$(echo "obase=2; ibase=16; 0014" | bc)
+	aux=$(echo $1 | cut -d " " -f 47,48 | cut -c2-5 | sed 's/ //g')
+	flag=$(echo "obase=2; ibase=16; $aux" | bc)
 	aux=0" $(echo -n "$flag" | cut -c1)"
 	aux=$aux" $(echo -n " $flag" | cut -c3)"
 	aux=$aux" $(echo -n " $flag" | cut -c4)"
@@ -142,3 +215,4 @@ then
 else
 	echo "PROTOCOLO DA CAMADA DE TRANSPORTE DIFERENTE DE TCP E UDP"
 fi
+echo
