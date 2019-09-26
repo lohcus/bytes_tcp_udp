@@ -73,7 +73,7 @@ echo -n "Dst MAC: "
 aux=$(echo $1 | cut -d " " -f 1,2,3,4,5,6)
 printf "\033[33;1m$aux\n\033[m"
 
-echo -n "Dst MAC: "
+echo -n "Src MAC: "
 aux=$(echo $1 | cut -d " " -f 7,8,9,10,11,12)
 printf "\033[33;1m$aux\n\033[m"
 
@@ -187,6 +187,7 @@ then
 
 	echo -n "Tamanho do cabeçalho TCP: "
 	aux=$(echo $1 | cut -d " " -f 47 | cut -c1)
+	aux=$(printf %d 0x$aux)
 	let aux=$aux*4
 	printf "\033[33;1m$aux bytes\n\033[m"
 
