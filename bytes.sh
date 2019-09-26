@@ -140,5 +140,5 @@ then
 	aux=$(printf "%d\n" 0x$(echo $1 | cut -d " " -f 37,38 | sed 's/ //g'))
 	printf "\033[33;1m$aux\n\033[m"
 else
-	echo "BARRO"
+	echo "PROTOCOLO DA CAMADA DE TRANSPORTE DIFERENTE DE TCP E UDP"
 fi
