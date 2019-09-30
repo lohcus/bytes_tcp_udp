@@ -1,6 +1,7 @@
 Script simples para análise de bytes para cabeçalhos IP e TCP/UDP, ICMP e também pacotes ARP.
 
 Sintaxe de uso:
+
 ./bytes.sh <"seq_bytes">
 
 ./bytes.sh <arquivo_com_bytes>
