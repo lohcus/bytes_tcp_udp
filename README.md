@@ -19,6 +19,7 @@ Exemplos:
 ./bytes.sh sequencia.txt
 
 
+
 V2:
 Sintaxe de uso:
 
