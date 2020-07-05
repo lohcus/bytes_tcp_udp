@@ -1,7 +1,7 @@
 
 Script simples para análise de bytes para cabeçalhos IP e TCP/UDP, ICMP e também pacotes ARP.
 
-V1:
+<b>V1:</b>
 Sintaxe de uso:
 
 ./bytes.sh <"seq_bytes">
@@ -20,7 +20,7 @@ Exemplos:
 
 
 
-V2:
+<b>V2:</b>
 Sintaxe de uso:
 
 ./bytes_v2.sh -b seq_bytes_ou_arquivo [opcões]
